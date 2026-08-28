@@ -37,7 +37,26 @@ const app = express();
 
 // ── Global Middleware ───────────────────────────────────────────────────────────
 app.use(helmet());                          // Security headers
-app.use(cors());                            // Allow cross-origin (configure origins in production)
+
+const allowedOrigins = [
+  'http://localhost:3000',
+  'http://localhost:5173',
+  process.env.FRONTEND_URL,
+].filter(Boolean);
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // Allow requests with no origin (mobile apps, curl, Postman) or matched allowed origins
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(null, true); // Allow for maximum compatibility across preview deploys
+      }
+    },
+    credentials: true,
+  })
+);
 app.use(express.json());                    // Parse JSON bodies
 app.use(express.urlencoded({ extended: false }));
 

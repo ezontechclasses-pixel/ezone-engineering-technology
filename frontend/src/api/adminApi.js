@@ -5,7 +5,7 @@ import axios from 'axios';
  * Reads adminToken from localStorage and attaches it as Authorization: Bearer <token>.
  */
 const adminApi = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || '/api',
+  baseURL: import.meta.env.VITE_API_URL || import.meta.env.VITE_API_BASE_URL || '/api',
   headers: { 'Content-Type': 'application/json' },
 });
 
