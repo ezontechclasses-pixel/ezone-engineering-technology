@@ -1,10 +1,22 @@
 const jwt = require('jsonwebtoken');
 const Student = require('../models/Student');
 
+// Helper to sanitize expiresIn with a safe fallback
+const getExpiresIn = () => {
+  const raw = process.env.JWT_EXPIRES_IN;
+  if (raw && typeof raw === 'string') {
+    const cleaned = raw.replace(/['"]/g, '').trim();
+    if (cleaned && cleaned !== 'undefined' && cleaned !== 'null') {
+      return cleaned;
+    }
+  }
+  return '7d';
+};
+
 // Helper to sign JWT
 const signToken = (id) =>
   jwt.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRES_IN,
+    expiresIn: getExpiresIn(),
   });
 
 // @desc    Register a new student

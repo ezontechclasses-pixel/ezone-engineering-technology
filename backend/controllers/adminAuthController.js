@@ -1,11 +1,23 @@
 const jwt = require('jsonwebtoken');
 const Admin = require('../models/Admin');
 
+// Helper to sanitize expiresIn with a safe fallback
+const getExpiresIn = () => {
+  const raw = process.env.JWT_EXPIRES_IN;
+  if (raw && typeof raw === 'string') {
+    const cleaned = raw.replace(/['"]/g, '').trim();
+    if (cleaned && cleaned !== 'undefined' && cleaned !== 'null') {
+      return cleaned;
+    }
+  }
+  return '7d';
+};
+
 const generateAdminToken = (adminId) => {
   return jwt.sign(
     { id: adminId, role: 'admin' },
     process.env.ADMIN_JWT_SECRET,
-    { expiresIn: process.env.JWT_EXPIRES_IN || '7d' }
+    { expiresIn: getExpiresIn() }
   );
 };
 
