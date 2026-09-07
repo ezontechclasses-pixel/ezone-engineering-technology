@@ -1,4 +1,6 @@
 const Course = require('../models/Course');
+const Unit = require('../models/Unit');
+const Lesson = require('../models/Lesson');
 
 // @desc    Get all courses (optionally filter by grade)
 // @route   GET /api/courses?grade=12
@@ -6,7 +8,7 @@ const Course = require('../models/Course');
 const getCourses = async (req, res, next) => {
   try {
     const filter = req.query.grade ? { grade: req.query.grade } : {};
-    const courses = await Course.find(filter).populate('units');
+    const courses = await Course.find(filter).populate('units').sort({ grade: 1, title: 1 });
     res.status(200).json({ success: true, count: courses.length, data: courses });
   } catch (err) {
     next(err);
@@ -70,6 +72,12 @@ const deleteCourse = async (req, res, next) => {
     if (!course) {
       return res.status(404).json({ success: false, message: 'Course not found' });
     }
+    // Delete all child units and their child lessons
+    const units = await Unit.find({ courseId: course._id });
+    const unitIds = units.map((u) => u._id);
+    await Lesson.deleteMany({ unitId: { $in: unitIds } });
+    await Unit.deleteMany({ courseId: course._id });
+
     res.status(200).json({ success: true, message: 'Course deleted' });
   } catch (err) {
     next(err);

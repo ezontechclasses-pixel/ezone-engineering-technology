@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 
 const NAV_ITEMS = [
+  { to: '/admin/courses',      icon: '📚', label: 'Manage Courses',       ready: true },
   { to: '/admin/quizzes',      icon: '📝', label: 'Manage Quizzes',       ready: true },
   { to: '/admin/materials',    icon: '📁', label: 'Manage Materials',     ready: true },
   { to: '/admin/classroom',    icon: '🖥️', label: 'Manage Classroom',     ready: true },

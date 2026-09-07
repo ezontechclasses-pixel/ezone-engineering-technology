@@ -1,5 +1,6 @@
 const Unit = require('../models/Unit');
 const Course = require('../models/Course');
+const Lesson = require('../models/Lesson');
 
 // @desc    Get all units flat with Course title/grade (admin dropdown picker)
 // @route   GET /api/units/all-flat
@@ -33,7 +34,9 @@ const getAllUnitsFlat = async (req, res, next) => {
 const getUnits = async (req, res, next) => {
   try {
     const filter = req.query.courseId ? { courseId: req.query.courseId } : {};
-    const units = await Unit.find(filter).populate('lessons');
+    const units = await Unit.find(filter)
+      .populate('lessons')
+      .sort({ order: 1, createdAt: 1 });
     res.status(200).json({ success: true, count: units.length, data: units });
   } catch (err) {
     next(err);
@@ -100,6 +103,8 @@ const deleteUnit = async (req, res, next) => {
     }
     // Remove reference from parent course
     await Course.findByIdAndUpdate(unit.courseId, { $pull: { units: unit._id } });
+    // Remove child lessons
+    await Lesson.deleteMany({ unitId: unit._id });
     res.status(200).json({ success: true, message: 'Unit deleted' });
   } catch (err) {
     next(err);

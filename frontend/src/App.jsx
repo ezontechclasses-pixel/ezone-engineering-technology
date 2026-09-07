@@ -19,6 +19,9 @@ import Results     from './pages/Results';
 // Admin pages
 import AdminLogin         from './pages/admin/AdminLogin';
 import AdminDashboard     from './pages/admin/AdminDashboard';
+import AdminCourses       from './pages/admin/AdminCourses';
+import AdminUnits         from './pages/admin/AdminUnits';
+import AdminLessons       from './pages/admin/AdminLessons';
 import AdminQuizzes       from './pages/admin/AdminQuizzes';
 import QuizForm           from './pages/admin/QuizForm';
 import AdminStudents      from './pages/admin/AdminStudents';
@@ -55,6 +58,12 @@ function Layout() {
         {/* ── Admin ───────────────────────────────────────────────────────── */}
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin"       element={<AdminProtectedRoute><AdminDashboard /></AdminProtectedRoute>} />
+        <Route path="/admin/courses"
+          element={<AdminProtectedRoute><AdminCourses /></AdminProtectedRoute>} />
+        <Route path="/admin/courses/:courseId/units"
+          element={<AdminProtectedRoute><AdminUnits /></AdminProtectedRoute>} />
+        <Route path="/admin/units/:unitId/lessons"
+          element={<AdminProtectedRoute><AdminLessons /></AdminProtectedRoute>} />
         <Route path="/admin/quizzes"
           element={<AdminProtectedRoute><AdminQuizzes /></AdminProtectedRoute>} />
         <Route path="/admin/quizzes/new"
