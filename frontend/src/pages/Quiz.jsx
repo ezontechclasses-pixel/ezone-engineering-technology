@@ -106,8 +106,32 @@ export default function Quiz() {
   // ── START screen ─────────────────────────────────────────────────────────────
   if (phase === PHASE.START) {
     return (
-      <div style={s.page}>
-        <div style={s.card}>
+      <div style={s.page} className="quiz-page">
+        <style>{`
+          @media (max-width: 480px) {
+            .quiz-page {
+              padding: 1rem 0.75rem !important;
+            }
+            .quiz-start-card {
+              padding: 1.75rem 1.25rem !important;
+            }
+            .quiz-wrap {
+              padding: 1.25rem 1rem !important;
+            }
+            .quiz-score-card {
+              padding: 1.5rem 1rem !important;
+            }
+            .quiz-nav-row {
+              gap: 0.5rem !important;
+            }
+            .quiz-nav-row button {
+              padding: 0.65rem 1rem !important;
+              font-size: 0.88rem !important;
+            }
+          }
+        `}</style>
+
+        <div style={s.card} className="quiz-start-card">
           <span style={{ fontSize: '3rem' }}>📝</span>
           <h1 style={s.h1}>Quiz</h1>
           <div style={s.infoGrid}>
@@ -129,8 +153,26 @@ export default function Quiz() {
   // ── QUIZ screen ───────────────────────────────────────────────────────────────
   if (phase === PHASE.QUIZ) {
     return (
-      <div style={s.page}>
-        <div style={s.quizWrap}>
+      <div style={s.page} className="quiz-page">
+        <style>{`
+          @media (max-width: 480px) {
+            .quiz-page {
+              padding: 1rem 0.75rem !important;
+            }
+            .quiz-wrap {
+              padding: 1.25rem 1rem !important;
+            }
+            .quiz-nav-row {
+              gap: 0.5rem !important;
+            }
+            .quiz-nav-row button {
+              padding: 0.65rem 1rem !important;
+              font-size: 0.88rem !important;
+            }
+          }
+        `}</style>
+
+        <div style={s.quizWrap} className="quiz-wrap">
 
           {/* Header */}
           <div style={s.quizHeader}>
@@ -165,7 +207,7 @@ export default function Quiz() {
           </div>
 
           {/* Navigation */}
-          <div style={s.navRow}>
+          <div style={s.navRow} className="quiz-nav-row">
             <button
               onClick={handlePrev}
               disabled={currentIdx === 0}
@@ -217,20 +259,43 @@ export default function Quiz() {
     const passed = results.percentage >= 50;
 
     return (
-      <div style={s.page}>
+      <div style={s.page} className="quiz-page">
+        <style>{`
+          @media (max-width: 480px) {
+            .quiz-page {
+              padding: 1rem 0.75rem !important;
+            }
+            .quiz-score-card {
+              padding: 1.5rem 1rem !important;
+            }
+            .quiz-score-pct {
+              font-size: 2.75rem !important;
+            }
+            .quiz-result-actions {
+              flex-direction: column !important;
+              width: 100% !important;
+            }
+            .quiz-result-actions button,
+            .quiz-result-actions a {
+              width: 100% !important;
+              text-align: center !important;
+            }
+          }
+        `}</style>
+
         <div style={s.resultsWrap}>
 
           {/* Score card */}
-          <div style={{ ...s.scoreCard, borderColor: passed ? '#22c55e' : '#e94560' }}>
+          <div style={{ ...s.scoreCard, borderColor: passed ? '#22c55e' : '#e94560' }} className="quiz-score-card">
             <span style={s.scoreTrophy}>{passed ? '🏆' : '📋'}</span>
             <h1 style={s.scoreTitle}>{passed ? 'Well done!' : 'Keep practising!'}</h1>
             <div style={s.scoreCircle}>
-              <span style={{ ...s.scorePct, color: passed ? '#22c55e' : '#e94560' }}>
+              <span style={{ ...s.scorePct, color: passed ? '#22c55e' : '#e94560' }} className="quiz-score-pct">
                 {results.percentage}%
               </span>
               <span style={s.scoreRaw}>{results.score} / {results.total} correct</span>
             </div>
-            <div style={s.resultActions}>
+            <div style={s.resultActions} className="quiz-result-actions">
               <button onClick={handleRetry} style={s.btnSecondary}>🔁 Try Again</button>
               <button onClick={() => navigate(-1)} style={s.btnPrimary}>← Back to Lesson</button>
             </div>

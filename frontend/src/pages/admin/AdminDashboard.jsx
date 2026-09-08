@@ -21,11 +21,30 @@ export default function AdminDashboard() {
 
   return (
     <div style={s.page}>
+      <style>{`
+        @media (max-width: 768px) {
+          .admin-main {
+            padding: 1.5rem 1rem !important;
+            margin: 1.5rem auto !important;
+          }
+          .admin-header-inner {
+            height: auto !important;
+            padding: 0.75rem 0 !important;
+            gap: 0.5rem !important;
+          }
+        }
+        @media (max-width: 480px) {
+          .admin-dashboard-grid {
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
+
       <AdminHeader title="Admin Dashboard" onLogout={handleLogout} />
 
-      <main style={s.main}>
+      <main style={s.main} className="admin-main">
         <p style={s.intro}>Select a section to manage:</p>
-        <div style={s.grid}>
+        <div style={s.grid} className="admin-dashboard-grid">
           {NAV_ITEMS.map((item) =>
             item.ready ? (
               <Link key={item.to} to={item.to} style={s.card}>
@@ -50,7 +69,7 @@ export default function AdminDashboard() {
 export function AdminHeader({ title, onLogout }) {
   return (
     <header style={s.header}>
-      <div style={s.headerInner}>
+      <div style={s.headerInner} className="admin-header-inner">
         <div style={s.headerLeft}>
           <Link to="/admin" style={s.headerBrand}>⚙️ Ezone Admin</Link>
           {title && <span style={s.headerTitle}>/ {title}</span>}

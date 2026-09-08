@@ -5,11 +5,34 @@ export default function Dashboard() {
   const { student } = useAuth();
 
   return (
-    <main style={styles.page}>
-      <h1 style={styles.title}>Student Dashboard</h1>
+    <main style={styles.page} className="dashboard-page">
+      <style>{`
+        .dashboard-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+          gap: 1.5rem;
+        }
+        @media (max-width: 768px) {
+          .dashboard-page {
+            padding: 0 1rem !important;
+            margin: 1.75rem auto !important;
+          }
+          .dashboard-title {
+            font-size: 1.6rem !important;
+          }
+        }
+        @media (max-width: 480px) {
+          .dashboard-grid {
+            grid-template-columns: 1fr !important;
+            gap: 1rem !important;
+          }
+        }
+      `}</style>
+
+      <h1 style={styles.title} className="dashboard-title">Student Dashboard</h1>
       <p style={styles.sub}>Welcome back, <strong>{student?.name}</strong>! (Grade {student?.grade})</p>
 
-      <div style={styles.grid}>
+      <div style={styles.grid} className="dashboard-grid">
         <Link to="/classroom" style={styles.card}>
           <span style={styles.icon}>🖥️</span>
           <span style={styles.cardLabel}>Online Classroom</span>

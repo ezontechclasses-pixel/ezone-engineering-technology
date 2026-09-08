@@ -142,12 +142,27 @@ export default function AdminLessons() {
 
   return (
     <div style={s.page}>
+      <style>{`
+        @media (max-width: 768px) {
+          .admin-main {
+            padding: 1.5rem 1rem !important;
+          }
+          .admin-form-grid2 {
+            grid-template-columns: 1fr !important;
+          }
+          .admin-toolbar {
+            flex-direction: column !important;
+            align-items: flex-start !important;
+          }
+        }
+      `}</style>
+
       <AdminHeader
         title={unit ? `${unit.title} — Lessons` : 'Manage Lessons'}
         onLogout={handleLogout}
       />
 
-      <main style={s.main}>
+      <main style={s.main} className="admin-main">
         {/* Navigation Breadcrumbs */}
         <div style={s.breadcrumb}>
           <Link to="/admin/courses" style={s.crumbLink}>
@@ -166,7 +181,7 @@ export default function AdminLessons() {
         </div>
 
         {/* Toolbar */}
-        <div style={s.toolbar}>
+        <div style={s.toolbar} className="admin-toolbar">
           <div>
             <h1 style={s.h1}>
               Lessons for {unit ? `"${unit.title}"` : 'Unit'}{' '}
@@ -190,7 +205,7 @@ export default function AdminLessons() {
               <span style={s.formHint}>Fields marked with * are required</span>
             </div>
 
-            <div style={s.grid2}>
+            <div style={s.grid2} className="admin-form-grid2">
               <div>
                 <label style={s.label}>Lesson Title *</label>
                 <input
@@ -221,7 +236,7 @@ export default function AdminLessons() {
               </div>
             </div>
 
-            <div style={s.grid2}>
+            <div style={s.grid2} className="admin-form-grid2">
               <div>
                 <label style={s.label}>
                   Video URL <span style={s.hint}>(YouTube or Google Drive link)</span>

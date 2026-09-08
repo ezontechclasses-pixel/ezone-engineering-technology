@@ -27,7 +27,14 @@ export default function Login() {
 
   return (
     <main style={styles.page}>
-      <div style={styles.card}>
+      <style>{`
+        @media (max-width: 480px) {
+          .auth-card {
+            padding: 1.75rem 1.25rem !important;
+          }
+        }
+      `}</style>
+      <div style={styles.card} className="auth-card">
         <h1 style={styles.title}>Login</h1>
         <p style={styles.sub}>Welcome back to Ezone 👋</p>
 

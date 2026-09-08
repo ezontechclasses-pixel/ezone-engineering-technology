@@ -35,15 +35,49 @@ export default function Courses() {
 
   return (
     <div style={s.page}>
+      <style>{`
+        .courses-tabs {
+          display: flex;
+          gap: 0.25rem;
+          padding-top: 0.25rem;
+          overflow-x: auto;
+          white-space: nowrap;
+          -webkit-overflow-scrolling: touch;
+        }
+        .courses-tabs::-webkit-scrollbar {
+          display: none;
+        }
+        .courses-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+          gap: 1.5rem;
+        }
+        @media (max-width: 768px) {
+          .courses-grid {
+            grid-template-columns: 1fr !important;
+          }
+          .courses-header {
+            padding: 2rem 1rem 0 !important;
+          }
+          .courses-body {
+            padding: 1.75rem 1rem !important;
+          }
+        }
+        @media (max-width: 480px) {
+          .courses-title {
+            font-size: 1.6rem !important;
+          }
+        }
+      `}</style>
 
       {/* Page header */}
-      <div style={s.pageHeader}>
+      <div style={s.pageHeader} className="courses-header">
         <div style={s.wrap}>
-          <h1 style={s.pageTitle}>Courses</h1>
+          <h1 style={s.pageTitle} className="courses-title">Courses</h1>
           <p style={s.pageSub}>A/L Engineering Technology — Grade 12 &amp; Grade 13</p>
 
           {/* Grade filter tabs */}
-          <div style={s.tabs} role="tablist">
+          <div style={s.tabs} className="courses-tabs" role="tablist">
             {GRADES.map((g) => (
               <button
                 key={g.value}
@@ -60,7 +94,7 @@ export default function Courses() {
       </div>
 
       {/* Body */}
-      <div style={s.body}>
+      <div style={s.body} className="courses-body">
         <div style={s.wrap}>
 
           {/* Loading */}
@@ -89,7 +123,7 @@ export default function Courses() {
 
           {/* Course grid */}
           {!loading && !error && courses.length > 0 && (
-            <div style={s.grid}>
+            <div style={s.grid} className="courses-grid">
               {courses.map((course) => (
                 <CourseCard key={course._id} course={course} />
               ))}

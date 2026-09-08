@@ -183,12 +183,27 @@ export default function AdminStudentDetail() {
 
   return (
     <div style={s.page}>
+      <style>{`
+        @media (max-width: 768px) {
+          .admin-detail-main {
+            padding: 1.5rem 1rem !important;
+          }
+          .admin-detail-grid {
+            grid-template-columns: 1fr !important;
+          }
+          .admin-form-grid2,
+          .admin-form-grid3 {
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
+
       <AdminHeader title="Student Detail" onLogout={handleLogout} />
 
-      <main style={s.main}>
+      <main style={s.main} className="admin-detail-main">
         <Link to="/admin/students" style={s.back}>← Back to Students</Link>
 
-        <div style={s.grid}>
+        <div style={s.grid} className="admin-detail-grid">
 
           {/* ── Left col: editable fields ─────────────────────────────────── */}
           <div>
@@ -367,7 +382,7 @@ export default function AdminStudentDetail() {
               {showResultForm && (
                 <form onSubmit={handleSaveResult} style={s.resultFormBox}>
                   <h3 style={s.formSubH3}>{editResultId ? 'Edit Exam Result' : 'Add New Exam Result'}</h3>
-                  <div style={s.formGrid2}>
+                  <div style={s.formGrid2} className="admin-form-grid2">
                     <div>
                       <label style={s.label}>Exam Title *</label>
                       <input
@@ -391,7 +406,7 @@ export default function AdminStudentDetail() {
                     </div>
                   </div>
 
-                  <div style={s.formGrid3}>
+                  <div style={s.formGrid3} className="admin-form-grid3">
                     <div>
                       <label style={s.label}>Marks *</label>
                       <input

@@ -152,9 +152,34 @@ export default function QuizForm() {
 
   return (
     <div style={s.page}>
+      <style>{`
+        @media (max-width: 768px) {
+          .admin-form-main {
+            padding: 1.5rem 1rem !important;
+          }
+          .admin-qblock {
+            padding: 1.25rem 1rem !important;
+          }
+        }
+        @media (max-width: 480px) {
+          .admin-save-row {
+            flex-direction: column !important;
+            align-items: stretch !important;
+          }
+          .admin-save-row button,
+          .admin-save-row a {
+            text-align: center !important;
+            width: 100% !important;
+          }
+          .admin-opt-row {
+            flex-wrap: wrap !important;
+          }
+        }
+      `}</style>
+
       <AdminHeader title={isEdit ? 'Edit Quiz' : 'Create New Quiz'} onLogout={handleLogout} />
 
-      <main style={s.main}>
+      <main style={s.main} className="admin-form-main">
         {/* Back link */}
         <Link to="/admin/quizzes" style={s.back}>← Back to Quizzes</Link>
         <h1 style={s.h1}>{isEdit ? 'Edit Quiz' : 'Create New Quiz'}</h1>
@@ -199,7 +224,7 @@ export default function QuizForm() {
         </section>
 
         {/* Save */}
-        <div style={s.saveRow}>
+        <div style={s.saveRow} className="admin-save-row">
           <button onClick={handleSave} disabled={saving} style={s.saveBtn}>
             {saving ? 'Saving…' : isEdit ? '💾 Save Changes' : '✓ Create Quiz'}
           </button>
@@ -214,7 +239,7 @@ export default function QuizForm() {
 function QuestionBlock({ q, idx, errors, onUpdate, onOptionChange, onSetCorrect, onRemove, canRemove }) {
   const p = `q${idx}`;
   return (
-    <div style={s.qBlock}>
+    <div style={s.qBlock} className="admin-qblock">
       {/* Header */}
       <div style={s.qHeader}>
         <span style={s.qNum}>Q{idx + 1}</span>
@@ -246,7 +271,7 @@ function QuestionBlock({ q, idx, errors, onUpdate, onOptionChange, onSetCorrect,
           {q.options.map((opt, oi) => {
             const isCorrect = q.correctAnswer === opt && opt.trim() !== '';
             return (
-              <div key={oi} style={{ ...s.optionRow, ...(isCorrect ? s.optionRowCorrect : {}) }}>
+              <div key={oi} style={{ ...s.optionRow, ...(isCorrect ? s.optionRowCorrect : {}) }} className="admin-opt-row">
                 <input
                   type="radio"
                   name={`correct-${q._tempId}`}

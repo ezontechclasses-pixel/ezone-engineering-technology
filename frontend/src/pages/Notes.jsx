@@ -113,7 +113,44 @@ export default function Notes() {
   const hasGroups = Object.keys(groupedMaterials).length > 0;
 
   return (
-    <div style={s.page}>
+    <div style={s.page} className="notes-page">
+      <style>{`
+        .notes-grade-tabs {
+          display: flex;
+          gap: 0.75rem;
+          margin-bottom: 1.5rem;
+          border-bottom: 2px solid #e5e7eb;
+          padding-bottom: 0.75rem;
+          overflow-x: auto;
+          white-space: nowrap;
+          -webkit-overflow-scrolling: touch;
+        }
+        .notes-grade-tabs::-webkit-scrollbar {
+          display: none;
+        }
+        .notes-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+          gap: 1rem;
+        }
+        @media (max-width: 768px) {
+          .notes-page {
+            padding: 1.5rem 1rem 4rem !important;
+          }
+          .notes-grid {
+            grid-template-columns: 1fr !important;
+          }
+          .notes-selector-bar {
+            flex-direction: column !important;
+            align-items: stretch !important;
+          }
+          .notes-select {
+            min-width: 100% !important;
+            width: 100% !important;
+          }
+        }
+      `}</style>
+
       <header style={s.header}>
         <h1 style={s.title}>📚 Notes &amp; Study Materials</h1>
         <p style={s.sub}>
@@ -122,7 +159,7 @@ export default function Notes() {
       </header>
 
       {/* Grade Selector Tabs */}
-      <div style={s.gradeTabs}>
+      <div style={s.gradeTabs} className="notes-grade-tabs">
         <button
           onClick={() => setSelectedGrade('12')}
           style={selectedGrade === '12' ? s.gradeTabActive : s.gradeTab}
@@ -138,7 +175,7 @@ export default function Notes() {
       </div>
 
       {/* Unit Selector Bar */}
-      <div style={s.selectorBar}>
+      <div style={s.selectorBar} className="notes-selector-bar">
         <label style={s.selectorLabel} htmlFor="unit-select">Select Unit:</label>
         {loadingUnits ? (
           <span style={s.selectorLoading}>Loading units…</span>
@@ -150,6 +187,7 @@ export default function Notes() {
             value={selectedUnitId}
             onChange={(e) => setSelectedUnitId(e.target.value)}
             style={s.select}
+            className="notes-select"
           >
             {units.map((u, idx) => (
               <option key={u._id} value={u._id}>
@@ -195,7 +233,7 @@ export default function Notes() {
                   </span>
                 </div>
 
-                <div style={s.materialGrid}>
+                <div style={s.materialGrid} className="notes-grid">
                   {items.map((m) => (
                     <div key={m._id} style={s.materialCard}>
                       <div style={s.cardTop}>

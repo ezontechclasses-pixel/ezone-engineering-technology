@@ -156,17 +156,44 @@ export default function Classroom() {
   );
 
   return (
-    <div style={s.page}>
+    <div style={s.page} className="classroom-page">
+      <style>{`
+        @media (max-width: 768px) {
+          .classroom-page {
+            padding: 1.5rem 1rem 4rem !important;
+          }
+          .classroom-layout {
+            grid-template-columns: 1fr !important;
+          }
+          .classroom-header {
+            flex-direction: column !important;
+            align-items: flex-start !important;
+            gap: 1rem !important;
+          }
+          .classroom-course-selector {
+            width: 100% !important;
+            justify-content: space-between !important;
+          }
+          .classroom-today-card {
+            flex-direction: column !important;
+            align-items: stretch !important;
+            gap: 1rem !important;
+          }
+          .classroom-today-card button {
+            width: 100% !important;
+          }
+        }
+      `}</style>
 
       {/* Header */}
-      <header style={s.header}>
+      <header style={s.header} className="classroom-header">
         <div>
           <h1 style={s.title}>🖥️ Online Classroom</h1>
           <p style={s.sub}>Live lectures, homework assignments, and announcements</p>
         </div>
 
         {/* Course Filter */}
-        <div style={s.courseSelector}>
+        <div style={s.courseSelector} className="classroom-course-selector">
           <label style={s.cLabel} htmlFor="course-select">Grade / Course:</label>
           <select
             id="course-select"
@@ -189,7 +216,7 @@ export default function Classroom() {
       {loading ? (
         <div style={s.loadingState}>Loading classroom details…</div>
       ) : (
-        <main style={s.mainLayout}>
+        <main style={s.mainLayout} className="classroom-layout">
 
           {/* Left Column: Live Classes & Homework */}
           <div style={s.leftCol}>
@@ -199,7 +226,7 @@ export default function Classroom() {
               <section style={s.todayBanner}>
                 <div style={s.todayBadge}>🔴 LIVE TODAY</div>
                 {todaysClasses.map((cls) => (
-                  <div key={cls._id} style={s.todayCard}>
+                  <div key={cls._id} style={s.todayCard} className="classroom-today-card">
                     <div style={{ flex: 1 }}>
                       <h2 style={s.todayTitle}>{cls.title}</h2>
                       <p style={s.todayMeta}>

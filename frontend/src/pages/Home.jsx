@@ -86,23 +86,97 @@ export default function Home() {
   ];
 
   return (
-    <div>
+    <div className="home-page">
+      <style>{`
+        @media (max-width: 768px) {
+          .home-hero {
+            padding: 3.5rem 1rem !important;
+          }
+          .home-hero-inner {
+            flex-direction: column !important;
+            align-items: center !important;
+            text-align: center !important;
+            gap: 2rem !important;
+          }
+          .home-hero-sub {
+            margin: 0 auto 1.5rem !important;
+          }
+          .home-hero-card {
+            width: 100% !important;
+            max-width: 300px !important;
+            padding: 1.5rem !important;
+          }
+          .home-stats-bar {
+            display: grid !important;
+            grid-template-columns: 1fr 1fr !important;
+          }
+          .home-stat-item {
+            padding: 1rem 0.5rem !important;
+            border-right: none !important;
+            border-bottom: 1px solid rgba(255,255,255,0.15) !important;
+          }
+          .home-instructor-card {
+            flex-direction: column !important;
+            align-items: center !important;
+            text-align: center !important;
+            padding: 1.75rem 1.25rem !important;
+          }
+          .home-btn-row {
+            justify-content: center !important;
+          }
+          .home-trial-inner {
+            flex-direction: column !important;
+            text-align: center !important;
+            align-items: center !important;
+            gap: 1.5rem !important;
+          }
+          .home-grid3 {
+            grid-template-columns: 1fr !important;
+          }
+          .home-section {
+            padding: 2.75rem 1.25rem !important;
+          }
+        }
+        @media (max-width: 480px) {
+          .home-hero {
+            padding: 2.75rem 0.75rem !important;
+          }
+          .home-hero-title {
+            font-size: 1.85rem !important;
+          }
+          .home-btn-row {
+            flex-direction: column !important;
+            width: 100% !important;
+          }
+          .home-btn-row a {
+            width: 100% !important;
+            text-align: center !important;
+          }
+          .home-stat-val {
+            font-size: 1.6rem !important;
+          }
+          .home-section {
+            padding: 2.25rem 0.75rem !important;
+          }
+        }
+      `}</style>
+
       {/* Hero */}
-      <section style={s.hero}>
-        <div style={s.heroInner}>
+      <section style={s.hero} className="home-hero">
+        <div style={s.heroInner} className="home-hero-inner">
           <div style={s.heroText}>
             <span style={s.heroBadge}>🎓 A/L Engineering Technology</span>
-            <h1 style={s.heroTitle}>E-Zone Engineering<br />Technology</h1>
-            <p style={s.heroSub}>
+            <h1 style={s.heroTitle} className="home-hero-title">E-Zone Engineering<br />Technology</h1>
+            <p style={s.heroSub} className="home-hero-sub">
               Online classes for Grade 12 &amp; Grade 13 — Theory, Practical,
               Drawing, Past Papers &amp; more.
             </p>
-            <div style={s.row}>
+            <div style={s.row} className="home-btn-row">
               <Link to="/register" style={s.btnPrimary}>Join Now — It's Free</Link>
               <Link to="/courses"  style={s.btnOutline}>Browse Courses</Link>
             </div>
           </div>
-          <div style={s.heroCard}>
+          <div style={s.heroCard} className="home-hero-card">
             <span style={{ fontSize: '3.5rem' }}>📐</span>
             <p style={{ margin: '0.5rem 0 0', fontWeight: 700, color: '#fff' }}>Grade 12 &amp; 13</p>
             <p style={{ margin: 0, fontSize: '0.85rem', color: '#aaa' }}>Sri Lanka A/L</p>
@@ -111,20 +185,20 @@ export default function Home() {
       </section>
 
       {/* Live Stats */}
-      <div style={s.statsBar}>
+      <div style={s.statsBar} className="home-stats-bar">
         {STAT_ITEMS.map((st) => (
-          <div key={st.label} style={s.statItem}>
-            <span style={s.statVal}>{st.value}</span>
+          <div key={st.label} style={s.statItem} className="home-stat-item">
+            <span style={s.statVal} className="home-stat-val">{st.value}</span>
             <span style={s.statLbl}>{st.label}</span>
           </div>
         ))}
       </div>
 
       {/* Instructor */}
-      <section style={s.section}>
-        <div style={s.wrap}>
+      <section style={s.section} className="home-section">
+        <div style={s.wrap} className="home-wrap">
           <p style={s.eyebrow}>Your Instructor</p>
-          <div style={s.instructorCard}>
+          <div style={s.instructorCard} className="home-instructor-card">
             <div style={s.avatar}>
               <img
                 src={instructor.photoUrl || dpImg}
@@ -136,7 +210,7 @@ export default function Home() {
               <h2 style={s.h2}>{instructor.name}</h2>
               <p style={s.role}>{instructor.qualification}</p>
               <p style={s.body}>{instructor.bio}</p>
-              <div style={s.row}>
+              <div style={s.row} className="home-btn-row">
                 <a href={waUrl} target="_blank" rel="noreferrer" style={s.btnGreen}>
                   💬 Join WhatsApp Group
                 </a>
@@ -152,14 +226,14 @@ export default function Home() {
       </section>
 
       {/* Subjects */}
-      <section style={{ ...s.section, background: '#f8f9ff' }}>
-        <div style={s.wrap}>
+      <section style={{ ...s.section, background: '#f8f9ff' }} className="home-section">
+        <div style={s.wrap} className="home-wrap">
           <p style={s.eyebrow}>What We Cover</p>
           <h2 style={s.h2}>Complete A/L ET Programme</h2>
           <p style={{ ...s.body, marginBottom: '2rem' }}>
             Everything you need to excel in your A/L Engineering Technology exam.
           </p>
-          <div style={s.grid3}>
+          <div style={s.grid3} className="home-grid3">
             {SUBJECTS.map((sub) => (
               <div key={sub.label} style={s.subCard}>
                 <span style={{ fontSize: '2rem', display: 'block', marginBottom: '0.75rem' }}>{sub.icon}</span>
@@ -172,8 +246,8 @@ export default function Home() {
       </section>
 
       {/* Free Trial CTA */}
-      <section style={s.darkSection}>
-        <div style={{ ...s.wrap, ...s.trialInner }}>
+      <section style={s.darkSection} className="home-section">
+        <div style={{ ...s.wrap, ...s.trialInner }} className="home-trial-inner">
           <div>
             <h2 style={{ color: '#fff', fontSize: '1.7rem', fontWeight: 800, margin: '0 0 0.5rem' }}>
               🎁 {freeTrial.title || 'Free Trial & Demo Class'}
@@ -182,7 +256,7 @@ export default function Home() {
               {freeTrial.description || 'Join our WhatsApp group today to get access to free trial sessions.'}
             </p>
           </div>
-          <div style={s.row}>
+          <div style={s.row} className="home-btn-row">
             <Link to="/register" style={s.btnPrimary}>Start Free Trial</Link>
             <a href={waUrl} target="_blank" rel="noreferrer" style={s.btnGreen}>📲 Join WhatsApp</a>
           </div>
@@ -190,8 +264,8 @@ export default function Home() {
       </section>
 
       {/* Testimonials */}
-      <section style={s.section}>
-        <div style={s.wrap}>
+      <section style={s.section} className="home-section">
+        <div style={s.wrap} className="home-wrap">
           <p style={s.eyebrow}>Student Success</p>
           <h2 style={s.h2}>Results Speak for Themselves</h2>
 
@@ -203,7 +277,7 @@ export default function Home() {
               </p>
             </div>
           ) : (
-            <div style={s.grid3}>
+            <div style={s.grid3} className="home-grid3">
               {testimonials.map((t) => (
                 <div key={t._id || t.name} style={s.testimonialCard}>
                   <p style={{ color: '#333', lineHeight: 1.75, fontStyle: 'italic', marginBottom: '1.25rem' }}>
@@ -226,8 +300,8 @@ export default function Home() {
       </section>
 
       {/* Final CTA */}
-      <section style={{ ...s.section, background: '#f8f9ff', textAlign: 'center' }}>
-        <div style={s.wrap}>
+      <section style={{ ...s.section, background: '#f8f9ff', textAlign: 'center' }} className="home-section">
+        <div style={s.wrap} className="home-wrap">
           <h2 style={s.h2}>Ready to ace your A/L Engineering Technology?</h2>
           <p style={{ ...s.body, marginBottom: '1.75rem' }}>
             Join hundreds of students already learning with E-Zone.
@@ -315,3 +389,4 @@ const s = {
   btnGreen:   { display: 'inline-block', background: '#25D366', color: '#fff', padding: '0.65rem 1.4rem', borderRadius: '8px', fontWeight: 700, textDecoration: 'none', fontSize: '0.9rem' },
   btnRed:     { display: 'inline-block', background: '#ff0000', color: '#fff', padding: '0.65rem 1.4rem', borderRadius: '8px', fontWeight: 700, textDecoration: 'none', fontSize: '0.9rem' },
 };
+

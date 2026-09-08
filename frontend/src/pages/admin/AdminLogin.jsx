@@ -40,7 +40,14 @@ export default function AdminLogin() {
 
   return (
     <main style={s.page}>
-      <div style={s.card}>
+      <style>{`
+        @media (max-width: 480px) {
+          .admin-login-card {
+            padding: 1.75rem 1.25rem !important;
+          }
+        }
+      `}</style>
+      <div style={s.card} className="admin-login-card">
         <h1 style={s.title}>🔐 Admin Portal</h1>
         <p style={s.sub}>Enter administrator credentials to access the control panel.</p>
 

@@ -68,12 +68,27 @@ export default function AdminMaterials() {
 
   return (
     <div style={s.page}>
+      <style>{`
+        @media (max-width: 768px) {
+          .admin-main {
+            padding: 1.5rem 1rem !important;
+          }
+          .admin-toolbar {
+            flex-direction: column !important;
+            align-items: flex-start !important;
+          }
+          .admin-filters select {
+            max-width: 100% !important;
+          }
+        }
+      `}</style>
+
       <AdminHeader title="Manage Materials" onLogout={handleLogout} />
 
-      <main style={s.main}>
+      <main style={s.main} className="admin-main">
 
         {/* Toolbar */}
-        <div style={s.toolbar}>
+        <div style={s.toolbar} className="admin-toolbar">
           <div style={s.toolbarLeft}>
             <h1 style={s.h1}>Study Materials {filtered.length > 0 && <span style={s.countBadge}>{filtered.length}</span>}</h1>
           </div>
@@ -83,7 +98,7 @@ export default function AdminMaterials() {
         </div>
 
         {/* Filters */}
-        <div style={s.filters}>
+        <div style={s.filters} className="admin-filters">
           <select
             id="unit-filter"
             value={unitFilter}

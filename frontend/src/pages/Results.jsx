@@ -42,7 +42,24 @@ export default function Results() {
   }
 
   return (
-    <div style={s.page}>
+    <div style={s.page} className="results-page">
+      <style>{`
+        .results-stat-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+          gap: 1.25rem;
+          margin-bottom: 2rem;
+        }
+        @media (max-width: 768px) {
+          .results-page {
+            padding: 1.5rem 1rem 4rem !important;
+          }
+          .results-stat-grid {
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
+
       <header style={s.header}>
         <h1 style={s.title}>🏆 Exam Results &amp; Achievements</h1>
         <p style={s.sub}>Track your term test marks, grades, and academic evaluation</p>
@@ -55,7 +72,7 @@ export default function Results() {
       ) : (
         <main>
           {/* Summary Cards */}
-          <div style={s.statGrid}>
+          <div style={s.statGrid} className="results-stat-grid">
             <div style={s.statCard}>
               <span style={s.statIcon}>📊</span>
               <div>

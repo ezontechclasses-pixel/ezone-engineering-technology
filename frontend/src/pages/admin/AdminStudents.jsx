@@ -85,9 +85,24 @@ export default function AdminStudents() {
   // ── Render ──────────────────────────────────────────────────────────────────
   return (
     <div style={s.page}>
+      <style>{`
+        @media (max-width: 768px) {
+          .admin-main {
+            padding: 1.5rem 1rem !important;
+          }
+          .admin-filters {
+            flex-direction: column !important;
+          }
+          .admin-filters select,
+          .admin-filters input {
+            width: 100% !important;
+          }
+        }
+      `}</style>
+
       <AdminHeader title="Manage Students" onLogout={handleLogout} />
 
-      <main style={s.main}>
+      <main style={s.main} className="admin-main">
 
         {/* Toolbar */}
         <div style={s.toolbar}>
@@ -97,7 +112,7 @@ export default function AdminStudents() {
         </div>
 
         {/* Filters */}
-        <div style={s.filters}>
+        <div style={s.filters} className="admin-filters">
           <input
             id="student-search"
             type="search"

@@ -122,13 +122,38 @@ export default function MaterialForm() {
 
   return (
     <div style={s.page}>
+      <style>{`
+        @media (max-width: 768px) {
+          .admin-form-main {
+            padding: 1.5rem 1rem 4rem !important;
+          }
+          .admin-mat-grid2 {
+            grid-template-columns: 1fr !important;
+          }
+          .admin-mat-card {
+            padding: 1.25rem 1rem !important;
+          }
+        }
+        @media (max-width: 480px) {
+          .admin-save-row {
+            flex-direction: column !important;
+            align-items: stretch !important;
+          }
+          .admin-save-row button,
+          .admin-save-row a {
+            text-align: center !important;
+            width: 100% !important;
+          }
+        }
+      `}</style>
+
       <AdminHeader title={isEdit ? 'Edit Material' : 'Create Material'} onLogout={handleLogout} />
 
-      <main style={s.main}>
+      <main style={s.main} className="admin-form-main">
         <Link to="/admin/materials" style={s.back}>← Back to Materials</Link>
         <h1 style={s.h1}>{isEdit ? 'Edit Study Material' : 'Create Study Material'}</h1>
 
-        <form onSubmit={handleSave} style={s.card}>
+        <form onSubmit={handleSave} style={s.card} className="admin-mat-card">
 
           {/* Title */}
           <div style={s.field}>
@@ -145,7 +170,7 @@ export default function MaterialForm() {
           </div>
 
           {/* Type & Unit grid */}
-          <div style={s.grid2}>
+          <div style={s.grid2} className="admin-mat-grid2">
             {/* Type */}
             <div style={s.field}>
               <label style={s.label} htmlFor="mat-type">Material Type *</label>
@@ -219,7 +244,7 @@ export default function MaterialForm() {
           </div>
 
           {/* Save buttons */}
-          <div style={s.saveRow}>
+          <div style={s.saveRow} className="admin-save-row">
             <button type="submit" disabled={saving} style={s.saveBtn}>
               {saving ? 'Saving…' : isEdit ? '💾 Save Changes' : '✓ Create Material'}
             </button>

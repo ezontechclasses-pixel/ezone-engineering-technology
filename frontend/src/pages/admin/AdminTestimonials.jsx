@@ -94,10 +94,25 @@ export default function AdminTestimonials() {
 
   return (
     <div style={s.page}>
+      <style>{`
+        @media (max-width: 768px) {
+          .admin-main {
+            padding: 1.5rem 1rem !important;
+          }
+          .admin-form-grid2 {
+            grid-template-columns: 1fr !important;
+          }
+          .admin-header-row {
+            flex-direction: column !important;
+            align-items: flex-start !important;
+          }
+        }
+      `}</style>
+
       <AdminHeader title="Manage Testimonials" onLogout={handleLogout} />
 
-      <main style={s.main}>
-        <div style={s.headerRow}>
+      <main style={s.main} className="admin-main">
+        <div style={s.headerRow} className="admin-header-row">
           <div>
             <h1 style={s.title}>Student Testimonials</h1>
             <p style={s.sub}>Add and manage student reviews shown on the Home page</p>
@@ -109,7 +124,7 @@ export default function AdminTestimonials() {
         {showForm && (
           <form onSubmit={handleSubmit} style={s.formBox}>
             <h3 style={s.formTitle}>{editId ? 'Edit Testimonial' : 'Add New Testimonial'}</h3>
-            <div style={s.grid2}>
+            <div style={s.grid2} className="admin-form-grid2">
               <div>
                 <label style={s.label}>Student Name *</label>
                 <input

@@ -242,11 +242,44 @@ export default function AdminClassroom() {
 
   return (
     <div style={s.page}>
+      <style>{`
+        .admin-tabbar {
+          display: flex;
+          gap: 0.75rem;
+          margin-bottom: 1.75rem;
+          border-bottom: 2px solid #e5e7eb;
+          padding-bottom: 0.75rem;
+          overflow-x: auto;
+          white-space: nowrap;
+          -webkit-overflow-scrolling: touch;
+        }
+        .admin-tabbar::-webkit-scrollbar {
+          display: none;
+        }
+        @media (max-width: 768px) {
+          .admin-main {
+            padding: 1.5rem 1rem !important;
+          }
+          .admin-toolbar {
+            flex-direction: column !important;
+            align-items: flex-start !important;
+            gap: 0.75rem !important;
+          }
+          .admin-classroom-grid2 {
+            grid-template-columns: 1fr !important;
+          }
+          .admin-modal-content {
+            padding: 1.25rem 1rem !important;
+            width: 95% !important;
+          }
+        }
+      `}</style>
+
       <AdminHeader title="Manage Online Classroom" onLogout={handleLogout} />
 
-      <main style={s.main}>
+      <main style={s.main} className="admin-main">
         {/* Navigation Tabs */}
-        <div style={s.tabBar}>
+        <div style={s.tabBar} className="admin-tabbar">
           <button
             onClick={() => setActiveTab('live')}
             style={activeTab === 'live' ? s.tabActive : s.tab}
@@ -275,7 +308,7 @@ export default function AdminClassroom() {
             {/* ── TAB 1: LIVE CLASSES ────────────────────────────────────── */}
             {activeTab === 'live' && (
               <div>
-                <div style={s.toolbar}>
+                <div style={s.toolbar} className="admin-toolbar">
                   <h2 style={s.tabH2}>Live Classes</h2>
                   <button onClick={openNewLiveForm} style={s.addBtn}>+ Schedule Live Class</button>
                 </div>
@@ -284,7 +317,7 @@ export default function AdminClassroom() {
                 {showLiveForm && (
                   <form onSubmit={handleSaveLive} style={s.formBox}>
                     <h3 style={s.formH3}>{editLiveId ? 'Edit Live Class' : 'Schedule New Live Class'}</h3>
-                    <div style={s.grid2}>
+                    <div style={s.grid2} className="admin-classroom-grid2">
                       <div>
                         <label style={s.label}>Course *</label>
                         <select
@@ -311,7 +344,7 @@ export default function AdminClassroom() {
                       </div>
                     </div>
 
-                    <div style={s.grid2}>
+                    <div style={s.grid2} className="admin-classroom-grid2">
                       <div>
                         <label style={s.label}>Scheduled Date &amp; Time *</label>
                         <input
@@ -425,7 +458,7 @@ export default function AdminClassroom() {
             {/* ── TAB 2: HOMEWORK ────────────────────────────────────────── */}
             {activeTab === 'homework' && (
               <div>
-                <div style={s.toolbar}>
+                <div style={s.toolbar} className="admin-toolbar">
                   <h2 style={s.tabH2}>Homework &amp; Assignments</h2>
                   <button onClick={openNewHwForm} style={s.addBtn}>+ Create Homework</button>
                 </div>
@@ -434,7 +467,7 @@ export default function AdminClassroom() {
                 {showHwForm && (
                   <form onSubmit={handleSaveHw} style={s.formBox}>
                     <h3 style={s.formH3}>{editHwId ? 'Edit Homework' : 'Create Homework'}</h3>
-                    <div style={s.grid2}>
+                    <div style={s.grid2} className="admin-classroom-grid2">
                       <div>
                         <label style={s.label}>Course *</label>
                         <select
@@ -461,7 +494,7 @@ export default function AdminClassroom() {
                       </div>
                     </div>
 
-                    <div style={s.grid2}>
+                    <div style={s.grid2} className="admin-classroom-grid2">
                       <div>
                         <label style={s.label}>Due Date &amp; Time *</label>
                         <input
@@ -545,7 +578,7 @@ export default function AdminClassroom() {
             {/* ── TAB 3: ANNOUNCEMENTS ───────────────────────────────────── */}
             {activeTab === 'announcements' && (
               <div>
-                <div style={s.toolbar}>
+                <div style={s.toolbar} className="admin-toolbar">
                   <h2 style={s.tabH2}>Announcements</h2>
                   <button onClick={openNewAnnForm} style={s.addBtn}>+ Post Announcement</button>
                 </div>
@@ -554,7 +587,7 @@ export default function AdminClassroom() {
                 {showAnnForm && (
                   <form onSubmit={handleSaveAnn} style={s.formBox}>
                     <h3 style={s.formH3}>{editAnnId ? 'Edit Announcement' : 'Post Announcement'}</h3>
-                    <div style={s.grid2}>
+                    <div style={s.grid2} className="admin-classroom-grid2">
                       <div>
                         <label style={s.label}>Target Audience</label>
                         <select
@@ -630,7 +663,7 @@ export default function AdminClassroom() {
         {/* ── MODAL 1: ATTENDANCE LIST ───────────────────────────────────── */}
         {attendanceModal.open && (
           <div style={s.modalOverlay}>
-            <div style={s.modalContent}>
+            <div style={s.modalContent} className="admin-modal-content">
               <div style={s.modalHeader}>
                 <h3 style={s.modalH3}>Attendance — {attendanceModal.liveClass?.title}</h3>
                 <button onClick={() => setAttendanceModal({ open: false, liveClass: null, records: [], loading: false })} style={s.closeBtn}>✕</button>
@@ -671,7 +704,7 @@ export default function AdminClassroom() {
         {/* ── MODAL 2: HOMEWORK SUBMISSIONS LIST ─────────────────────────── */}
         {submissionModal.open && (
           <div style={s.modalOverlay}>
-            <div style={{ ...s.modalContent, maxWidth: 850 }}>
+            <div style={{ ...s.modalContent, maxWidth: 850 }} className="admin-modal-content">
               <div style={s.modalHeader}>
                 <h3 style={s.modalH3}>Submissions — {submissionModal.homework?.title}</h3>
                 <button onClick={() => setSubmissionModal({ open: false, homework: null, records: [], loading: false })} style={s.closeBtn}>✕</button>

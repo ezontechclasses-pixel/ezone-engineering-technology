@@ -27,12 +27,28 @@ export default function CourseDetail() {
   if (!course) return <p style={styles.status}>Course not found.</p>;
 
   return (
-    <main style={styles.page}>
+    <main style={styles.page} className="course-detail-page">
+      <style>{`
+        @media (max-width: 768px) {
+          .course-detail-page {
+            padding: 0 1rem !important;
+            margin: 1.5rem auto !important;
+          }
+          .course-detail-title {
+            font-size: 1.5rem !important;
+          }
+          .course-lesson-item {
+            flex-wrap: wrap !important;
+            gap: 0.5rem !important;
+          }
+        }
+      `}</style>
+
       <Link to="/courses" style={styles.back}>← Back to Courses</Link>
 
       <div style={styles.header}>
         <span style={styles.badge}>Grade {course.grade}</span>
-        <h1 style={styles.title}>{course.title}</h1>
+        <h1 style={styles.title} className="course-detail-title">{course.title}</h1>
         <p style={styles.desc}>{course.description}</p>
       </div>
 
@@ -49,7 +65,7 @@ export default function CourseDetail() {
           {unit.lessons && unit.lessons.length > 0 ? (
             <ul style={styles.lessons}>
               {unit.lessons.map((lesson) => (
-                <li key={lesson._id} style={styles.lessonItem}>
+                <li key={lesson._id} style={styles.lessonItem} className="course-lesson-item">
                   <span style={{ ...styles.typeTag, ...typeColor(lesson.type) }}>
                     {lesson.type}
                   </span>

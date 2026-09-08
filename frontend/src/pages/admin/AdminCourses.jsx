@@ -107,11 +107,26 @@ export default function AdminCourses() {
 
   return (
     <div style={s.page}>
+      <style>{`
+        @media (max-width: 768px) {
+          .admin-main {
+            padding: 1.5rem 1rem !important;
+          }
+          .admin-form-grid2 {
+            grid-template-columns: 1fr !important;
+          }
+          .admin-toolbar {
+            flex-direction: column !important;
+            align-items: flex-start !important;
+          }
+        }
+      `}</style>
+
       <AdminHeader title="Manage Courses" onLogout={handleLogout} />
 
-      <main style={s.main}>
+      <main style={s.main} className="admin-main">
         {/* Toolbar */}
-        <div style={s.toolbar}>
+        <div style={s.toolbar} className="admin-toolbar">
           <div style={s.toolbarLeft}>
             <h1 style={s.h1}>
               Courses {courses.length > 0 && <span style={s.countBadge}>{filteredCourses.length}</span>}
@@ -148,7 +163,7 @@ export default function AdminCourses() {
               <span style={s.formHint}>All fields marked with * are required</span>
             </div>
 
-            <div style={s.grid2}>
+            <div style={s.grid2} className="admin-form-grid2">
               <div>
                 <label style={s.label}>Course Title *</label>
                 <input

@@ -106,16 +106,44 @@ export default function AdminSiteContent() {
 
   return (
     <div style={s.page}>
+      <style>{`
+        .admin-content-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+          gap: 1.5rem;
+        }
+        @media (max-width: 768px) {
+          .admin-content-main {
+            padding: 1.5rem 1rem 4rem !important;
+          }
+          .admin-content-grid {
+            grid-template-columns: 1fr !important;
+          }
+          .admin-content-card {
+            padding: 1.25rem 1rem !important;
+          }
+        }
+        @media (max-width: 480px) {
+          .admin-header-row {
+            flex-direction: column !important;
+            align-items: flex-start !important;
+          }
+          .admin-top-save-btn {
+            width: 100% !important;
+          }
+        }
+      `}</style>
+
       <AdminHeader title="Manage Site Content" onLogout={handleLogout} />
 
-      <main style={s.main}>
-        <div style={s.headerRow}>
+      <main style={s.main} className="admin-content-main">
+        <div style={s.headerRow} className="admin-header-row">
           <div>
             <Link to="/admin" style={s.back}>← Back to Dashboard</Link>
             <h1 style={s.h1}>Manage Site Content</h1>
             <p style={s.sub}>Edit Home page instructor, contact links, and free trial callouts.</p>
           </div>
-          <button onClick={handleSave} disabled={saving} style={s.topSaveBtn}>
+          <button onClick={handleSave} disabled={saving} style={s.topSaveBtn} className="admin-top-save-btn">
             {saving ? 'Saving…' : '💾 Save All Changes'}
           </button>
         </div>
@@ -126,9 +154,9 @@ export default function AdminSiteContent() {
           </div>
         )}
 
-        <form onSubmit={handleSave} style={s.formGrid}>
+        <form onSubmit={handleSave} style={s.formGrid} className="admin-content-grid">
           {/* Instructor Info */}
-          <section style={s.card}>
+          <section style={s.card} className="admin-content-card">
             <h2 style={s.cardTitle}>👨‍🏫 Instructor Details</h2>
 
             <div style={s.field}>
@@ -177,7 +205,7 @@ export default function AdminSiteContent() {
           </section>
 
           {/* Contact Details */}
-          <section style={s.card}>
+          <section style={s.card} className="admin-content-card">
             <h2 style={s.cardTitle}>📞 Contact &amp; Social Links</h2>
 
             <div style={s.field}>
@@ -226,7 +254,7 @@ export default function AdminSiteContent() {
           </section>
 
           {/* Free Trial Banner */}
-          <section style={{ ...s.card, gridColumn: '1 / -1' }}>
+          <section style={{ ...s.card, gridColumn: '1 / -1' }} className="admin-content-card">
             <h2 style={s.cardTitle}>🎁 Free Trial Callout</h2>
 
             <div style={s.field}>

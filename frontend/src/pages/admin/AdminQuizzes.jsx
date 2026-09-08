@@ -42,10 +42,22 @@ export default function AdminQuizzes() {
 
   return (
     <div style={s.page}>
+      <style>{`
+        @media (max-width: 768px) {
+          .admin-main {
+            padding: 1.5rem 1rem !important;
+          }
+          .admin-toolbar {
+            flex-direction: column !important;
+            align-items: flex-start !important;
+          }
+        }
+      `}</style>
+
       <AdminHeader title="Manage Quizzes" onLogout={handleLogout} />
 
-      <main style={s.main}>
-        <div style={s.toolbar}>
+      <main style={s.main} className="admin-main">
+        <div style={s.toolbar} className="admin-toolbar">
           <h1 style={s.h1}>Quizzes ({quizzes.length})</h1>
           <Link to="/admin/quizzes/new" style={s.createBtn}>+ Create New Quiz</Link>
         </div>
@@ -61,47 +73,49 @@ export default function AdminQuizzes() {
         )}
 
         {!loading && quizzes.length > 0 && (
-          <table style={s.table}>
-            <thead>
-              <tr>
-                <th style={s.th}>Lesson</th>
-                <th style={{ ...s.th, width: 100, textAlign: 'center' }}>Questions</th>
-                <th style={{ ...s.th, width: 180 }}>Created</th>
-                <th style={{ ...s.th, width: 140 }}>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {quizzes.map((quiz) => (
-                <tr key={quiz._id} style={s.tr}>
-                  <td style={s.td}>
-                    <span style={s.lessonLabel}>{quiz.lessonLabel}</span>
-                    {quiz.lessonType && (
-                      <span style={s.typeBadge}>{quiz.lessonType}</span>
-                    )}
-                  </td>
-                  <td style={{ ...s.td, textAlign: 'center', fontWeight: 700 }}>
-                    {quiz.questionCount}
-                  </td>
-                  <td style={{ ...s.td, color: '#888', fontSize: '0.85rem' }}>
-                    {new Date(quiz.createdAt).toLocaleDateString()}
-                  </td>
-                  <td style={s.td}>
-                    <div style={s.actions}>
-                      <Link to={`/admin/quizzes/${quiz._id}/edit`} style={s.editBtn}>
-                        Edit
-                      </Link>
-                      <button
-                        onClick={() => handleDelete(quiz._id, quiz.lessonLabel)}
-                        style={s.deleteBtn}
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  </td>
+          <div style={s.tableWrap}>
+            <table style={s.table}>
+              <thead>
+                <tr>
+                  <th style={s.th}>Lesson</th>
+                  <th style={{ ...s.th, width: 100, textAlign: 'center' }}>Questions</th>
+                  <th style={{ ...s.th, width: 180 }}>Created</th>
+                  <th style={{ ...s.th, width: 140 }}>Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {quizzes.map((quiz) => (
+                  <tr key={quiz._id} style={s.tr}>
+                    <td style={s.td}>
+                      <span style={s.lessonLabel}>{quiz.lessonLabel}</span>
+                      {quiz.lessonType && (
+                        <span style={s.typeBadge}>{quiz.lessonType}</span>
+                      )}
+                    </td>
+                    <td style={{ ...s.td, textAlign: 'center', fontWeight: 700 }}>
+                      {quiz.questionCount}
+                    </td>
+                    <td style={{ ...s.td, color: '#888', fontSize: '0.85rem' }}>
+                      {new Date(quiz.createdAt).toLocaleDateString()}
+                    </td>
+                    <td style={s.td}>
+                      <div style={s.actions}>
+                        <Link to={`/admin/quizzes/${quiz._id}/edit`} style={s.editBtn}>
+                          Edit
+                        </Link>
+                        <button
+                          onClick={() => handleDelete(quiz._id, quiz.lessonLabel)}
+                          style={s.deleteBtn}
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
       </main>
     </div>
@@ -116,7 +130,8 @@ const s = {
   status:  { textAlign: 'center', color: '#888', padding: '3rem 0' },
   empty:   { textAlign: 'center', padding: '3rem 0', color: '#888' },
   createBtn: { display: 'inline-block', background: '#1a1a2e', color: '#fff', padding: '0.55rem 1.25rem', borderRadius: '8px', textDecoration: 'none', fontWeight: 700, fontSize: '0.9rem' },
-  table:   { width: '100%', borderCollapse: 'collapse', background: '#fff', borderRadius: '10px', overflow: 'hidden', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' },
+  tableWrap: { overflowX: 'auto', background: '#fff', borderRadius: '10px', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' },
+  table:   { width: '100%', borderCollapse: 'collapse' },
   th:      { padding: '0.75rem 1rem', background: '#f8f9ff', textAlign: 'left', fontSize: '0.8rem', fontWeight: 700, color: '#666', borderBottom: '1px solid #e5e7eb' },
   tr:      { borderBottom: '1px solid #f0f0f0' },
   td:      { padding: '0.85rem 1rem', verticalAlign: 'middle', fontSize: '0.9rem' },
